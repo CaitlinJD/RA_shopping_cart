@@ -2,7 +2,7 @@ export default class ShoppingCart {
     constructor(){
         // initialize the shopping cart
         this.ss = null;
-        this.initializeCart()
+        this.initializeCart();
     }
     
     initializeCart () {
@@ -10,7 +10,7 @@ export default class ShoppingCart {
             this.ss= sessionStorage;
         }  else {
             console.log('Cody says you need a new browser! boo');
-            return
+            return;
         }
     }
     
@@ -121,9 +121,12 @@ export default class ShoppingCart {
         //loop through ss and add all the qty's
         let total = 0;
         for (let theKey in this.ss) {
-            let qty = (parseInt(this.ss.getItem(theKey)));
-            total += qty;
-            console.log("The total number of items is: " + total);
+            console.log('theKey: ' + theKey);
+            if ( !isNaN(parseFloat(theKey)) && isFinite(theKey) ) {
+                let qty = (parseInt(this.ss.getItem(theKey)));
+                total += qty;
+                console.log("The total number of items is: " + total);
+            }
         }
         $('.total-items').html(total);
     }
@@ -140,14 +143,16 @@ export default class ShoppingCart {
             cartContent = "<li><b>You have no items in the shopping cart.</b></li>";
         }else {
             for(let theKey in this.ss){
-                let criteriaFn = function(product){
-                    return product['sku'] == theKey;
-                };
-                let result = context.products.filter(criteriaFn);
-                console.log(result);
-                let qty = parseInt(this.ss.getItem(theKey));
-                console.log(qty);
-                cartContent += "<li><img src='"+result[0].thumbnailImage+"' alt='"+result[0].name+"' title='"+result[0].name+"'><h2 class='prodName'>"+result[0].name+"</h2><p>$"+result[0].salePrice+"</p><input id='input-"+result[0].sku+"' data-sku='"+result[0].sku+"'type='number' value='"+qty+"'><button id='delete-"+result[0].sku+"' data-sku='"+result[0].sku+"'>Remove Item</button></li>"
+                if ( !isNaN(parseFloat(theKey)) && isFinite(theKey) ) {
+                    let criteriaFn = function (product) {
+                        return product['sku'] == theKey;
+                    };
+                    let result = context.products.filter(criteriaFn);
+                    console.log(result);
+                    let qty = parseInt(this.ss.getItem(theKey));
+                    console.log(qty);
+                    cartContent += "<li><img src='" + result[0].thumbnailImage + "' alt='" + result[0].name + "' title='" + result[0].name + "'><h2 class='prodName'>" + result[0].name + "</h2><p>$" + result[0].salePrice + "</p><input id='input-" + result[0].sku + "' data-sku='" + result[0].sku + "'type='number' value='" + qty + "'><button id='delete-" + result[0].sku + "' data-sku='" + result[0].sku + "'>Remove Item</button></li>"
+                }
             }
             $('#shoppingCartContent').append(cartContent);
             

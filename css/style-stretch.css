@@ -556,6 +556,10 @@ section h2 {
    width: 100%;
 }
 
+.product-wrapper img {
+    height: 200px;
+}
+
 .product-type,
 .price {
    color: #969696;
