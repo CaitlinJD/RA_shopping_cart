@@ -1,10 +1,10 @@
 # RA_shopping_cart
 Best Buy Shopping Cart
 
-This project extended the Aloha website, creating a functioning shopping cart and pulling products from the Best Buy API.   
+This project extended the Aloha website, pulling in products from the Best Buy API and creating a functioning shopping cart where users are able to add, remove and update their cart.   
 
 ### Built With
-  - Brackets
+  - Brackets & PHP Storm
   - NPM
   - Webpack
  
